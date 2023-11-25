@@ -1,0 +1,397 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/*========= ローディング画面のためのCSS ===============*/
+#splash {
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	background: #FF5192	;
+	z-index: 9999999;
+	text-align:center;
+	color:#fff;
+}
+
+#splash-logo {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	font-size: 40px;
+}
+
+/*========= 画面遷移のためのCSS ===============*/
+
+/*画面遷移アニメーション*/
+.splashbg{
+    display: none;
+}
+
+/*bodyにappearクラスがついたら出現*/
+body.appear .splashbg{
+  display: block;
+  content: "";
+  position:fixed;
+	z-index: 999;
+  width: 100%;
+  height: 100vh;
+  top: 0;
+	left: 0;
+  transform: scaleX(0);
+  background-color: #FF5192	;/*伸びる背景色の設定*/
+	animation-name:PageAnime;
+	animation-duration:1.2s;
+	animation-timing-function:ease-in-out;
+	animation-fill-mode:forwards;
+}
+
+@keyframes PageAnime{
+	0% {
+		transform-origin:left;
+		transform:scaleX(0);
+	}
+	50% {
+		transform-origin:left;
+		transform:scaleX(1);
+	}
+	50.001% {
+		transform-origin:right;
+	}
+	100% {
+		transform-origin:right;
+		transform:scaleX(0);
+	}
+}
+
+/*画面遷移の後現れるコンテンツ設定*/
+#container{
+	opacity: 0;/*はじめは透過0に*/
+}
+
+/*bodyにappearクラスがついたら出現*/
+body.appear #container{
+	animation-name:PageAnimeAppear;
+	animation-duration:1s;
+	animation-delay: 0.8s;
+	animation-fill-mode:forwards;
+	opacity: 0;
+}
+
+@keyframes PageAnimeAppear{
+	0% {
+	opacity: 0;
+	}
+	100% {
+	opacity: 1;
+  }
+}
+
+/*==================================================
+ギャラリーのためのcss
+===================================*/
+.gallery{
+  columns: 4;/*段組みの数*/
+  padding:0 15px;/*ギャラリー左右に余白をつける*/
+}
+
+.gallery li {
+  margin-bottom: 20px;/*各画像下に余白をつける*/
+}
+
+/*ギャラリー内のイメージは横幅100%にする*/
+.gallery img{
+  width:100%;
+  height:auto;
+  vertical-align: bottom;/*画像の下にできる余白を削除*/
+}
+
+/*　横幅900px以下の段組み設定　*/
+@media only screen and (max-width: 900px) {
+  .gallery{
+    columns:3;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .gallery{
+    columns: 2;
+  }
+}
+
+
+/*========= レイアウトのためのCSS ===============*/
+
+ul{
+  margin:0;
+  padding: 0;
+  list-style: none;
+}
+
+a{
+  color: #333;
+}
+
+a:hover,
+a:active{
+  text-decoration: none;
+}
+
+h1{
+  text-align: center;
+  font-size:6vw;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  /*margin:30px 0;*/
+}
+
+p{
+  margin:0 10px 10px 10px;
+  word-wrap : break-word;
+}
+
+/*画像を出現させるアニメーションCSS*/
+
+.flipLeft{
+  animation-name: flipLeft;
+  animation-duration:0.5s;
+  animation-fill-mode:forwards;
+  perspective-origin: left center;
+  opacity: 0;
+}
+
+@keyframes flipLeft{
+  from {
+   transform: perspective(600px) translate3d(0, 0, 0) rotateY(30deg);
+    opacity: 0;
+  }
+
+  to {
+    transform: perspective(600px) translate3d(0, 0, 0) rotateY(0deg);
+    opacity: 1;
+  }
+}
+
+/*桜の背景設定*/
+html,body{
+	height: 100%;/*高さを100%にして描画エリアをとる*/
+}
+
+/*桜の背景設定*/
+#particles-js{
+	position:fixed;/*描画固定*/
+	z-index:-1;/*描画を一番下に*/
+	width: 100%;
+	height: 100%;
+	background-color:#FEE7E7;/*背景色*/
+}
+
+/*桜の背景設定*/
+#wrapper{
+	position: relative;/*描画を#particles-jsよりも上にするためposition:relative;を指定*/
+	z-index: 1;/*z-indexの数字を大きくすることで描画を#particles-jsよりも上に*/
+	width:100%;
+	height: 100%;
+}
+
+header {
+  font-family: 'Yuji Syuku', serif;
+  /*background-color: #FFBEDA;*/
+}
+
+header h1 {
+  font-size: 50px;
+  text-align: center;
+  padding-top: 40px;
+  padding-bottom: 20px;
+}
+
+nav{
+  text-align: center;
+  padding-bottom: 30px;
+  border-bottom: 1px solid #000;
+}
+
+/*== くるっとボタン共通設定 */
+.btn02 {
+  /*背景の基点とするためrelativeを指定*/
+  position: relative;
+  /*ボタンの形状*/
+  display: inline-block;
+  width:100%;
+  max-width: 250px;
+  height: 50px;
+  line-height: 50px;
+  text-align: center;
+  outline: none;
+}
+
+/*ボタン内側の設定*/
+.btn02 span {
+  display: block;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border: 1px solid #333;
+  /* 重なりを3Dで表示 */
+  transform-style: preserve-3d;
+  /* アニメーションの設定 数字が少なくなるほど早く回転 */
+  transition: 0.5s;
+}
+
+/*== くるっと回転（奥に） */
+
+/* 回転前 */
+.rotateback span:nth-child(1) {
+  background: #FF1A6F;
+  color: #000;
+  transform: rotateX(0deg);/*はじめは回転なし*/
+  transform-origin: 0 50%  -25px;/* 回転する起点 */
+}
+
+/*hoverをした後の形状*/
+.rotateback:hover span:nth-child(1) {
+  transform: rotateX(90deg);/* X軸に90度回転 */
+}
+
+/* 回転後 */
+.rotateback span:nth-child(2) {
+  background: #FF773E	;
+  color: #000;
+  transform: rotateX(-90deg);/*はじめはX軸に-90度回転*/
+  transform-origin: 0 50%  -25px;/* 回転する起点 */
+}
+
+/*hoverをした後の形状*/
+.rotateback:hover span:nth-child(2) {
+  transform: rotateX(0deg);/* X軸に0度回転 */
+}
+
+/*==================================================
+お知らせのためのcss
+===================================*/
+/*tabの形状*/
+.tab{
+  display: flex;
+  flex-wrap: wrap;
+}
+.tab li a{
+  display: block;
+  background:#ddd;
+  margin:0 2px;
+  padding:10px 20px;
+}
+/*liにactiveクラスがついた時の形状*/
+.tab li.active a{
+  background:#fff;
+}
+/*エリアの表示非表示と形状*/
+.area {
+  display: none;/*はじめは非表示*/
+  opacity: 0;/*透過0*/
+  background: #fff;
+  padding:50px 20px;
+}
+/*areaにis-activeというクラスがついた時の形状*/
+.area.is-active {
+  display: block;/*表示*/
+  animation-name: displayAnime;/*ふわっと表示させるためのアニメーション*/
+  animation-duration: 2s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes displayAnime{
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+/*========= レイアウトのためのCSS ===============*/
+ul{
+  list-style:none;
+}
+
+a{
+  color:#333;
+  text-decoration: none;
+}
+
+.wrapper{
+  width:100%;
+  max-width: 960px;
+  margin:30px auto;
+  background:#FEE7E7;
+  text-align: left;
+}
+
+.area h2{
+  font-size:1.3rem;
+  margin:0 0 20px 10px;
+}
+
+.area li{
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+.footer-content {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.footer1:last-child{
+　margin-right: auto;
+}
+
+footer {
+  width: 100%;
+  height: 100px;
+  text-align: center;
+  line-height: 100px;
+  color: #000;
+  border-top: 1px solid #000;
+}
+
+main {
+  display:flex;
+  flex-direction:column;
+  min-height: 800px;
+  text-align: center;
+  font-family: 'Yuji Syuku', serif;
+  padding: 20px 50px 20px 50px;
+  /*padding-top: 20px;*/
+  /*padding-left: 50px;*/
+  /*padding-bottom: 20px;*/
+}
+
+.policy1 {
+  text-align: left;
+  padding-top: 20px;
+  padding-bottom: 30px;
+}
+
+.policy1 h2{
+  color: red;
+  font-weight: bold;
+  padding-top: 20px;
+}
+
+.policy1 p{
+  padding-top: 20px;
+}
+
+h2 {
+  font-size: 30px;
+}
+
+
+
+
+
+
+
+
